@@ -2,17 +2,33 @@
 import { useState } from "react";
 
 const features = [
-  { label: "Classes", icon: "▤" },
-  { label: "Exams", icon: "☑" },
-  { label: "Code Lab", icon: "</>" },
-  { label: "Updates", icon: "♧" },
+  {
+    icon: "▤",
+    title: "Classes",
+    description: "Subjects, lessons, and files your teachers publish.",
+  },
+  {
+    icon: "♧",
+    title: "Exams",
+    description: "Timed tests, forms, and results in one place.",
+  },
+  {
+    icon: "‹/›",
+    title: "Code Lab",
+    description: "Practice problems with a built-in editor.",
+  },
+  {
+    icon: "♧",
+    title: "Updates",
+    description: "Announcements and attendance from your college.",
+  },
 ];
 
-function App() {
+export default function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [keepLoggedIn, setKeepLoggedIn] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
   const [message, setMessage] = useState("");
 
   function handleSubmit(e) {
@@ -23,191 +39,210 @@ function App() {
       return;
     }
 
-    setMessage("Login UI is ready. Connect your authentication API to sign in.");
-  }
-
-  function handleForgotPassword() {
-    setMessage("Please contact your college administrator to reset your password.");
+    setMessage(
+      "Login UI is ready. Connect your authentication service to sign in."
+    );
   }
 
   return (
-    <main className="min-h-screen bg-[#f4f5f9] px-4 py-7 sm:px-8 sm:py-8">
-      <div className="mx-auto max-w-6xl">
-        {/* Header */}
-        <header className="mb-12 flex items-center gap-4 sm:mb-16">
-          <div className="flex h-[72px] w-[72px] shrink-0 items-center justify-center rounded-2xl bg-[#111b32] text-3xl font-bold tracking-tight text-white">
-            EC
-          </div>
+    <main className="min-h-screen bg-[#f5f6fa] font-sans text-[#20212d]">
+      <div className="grid min-h-screen grid-cols-1 lg:grid-cols-[52.4%_47.6%]">
+        {/* LEFT PANEL */}
+        <section className="relative flex min-h-[600px] flex-col overflow-hidden bg-[#1c1d2a] px-7 py-8 text-white sm:px-11 sm:py-9 lg:min-h-screen">
+          <div className="pointer-events-none absolute -right-20 -top-20 h-60 w-60 rounded-full bg-white/[0.045]" />
+          <div className="pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-white/[0.035]" />
 
-          <div>
-            <h1 className="text-2xl font-semibold tracking-tight text-[#1b1c2b]">
-              Ely​tEdu
+          {/* Logo */}
+          <header className="relative z-10 flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#292b3b] text-xl font-black tracking-tight">
+              EC
+            </div>
+            <div>
+              <h2 className="text-sm font-semibold tracking-wide">ElytEdu</h2>
+              <p className="text-[11px] text-[#9b9daf]">
+                Student portal · Nano
+              </p>
+            </div>
+          </header>
+
+          {/* Welcome content */}
+          <div className="relative z-10 my-auto max-w-[470px] py-16 lg:py-10">
+            <p className="mb-3 text-[10px] font-bold tracking-[0.2em] text-[#9295ac]">
+              WELCOME BACK
+            </p>
+
+            <h1 className="max-w-[420px] text-3xl font-semibold leading-[1.15] tracking-[-0.045em] sm:text-[36px]">
+              Everything for class, in one sign-in.
             </h1>
-            <p className="mt-0.5 text-lg text-[#9295a4]">
-              Student · Crec
-            </p>
-          </div>
-        </header>
 
-        {/* Login card */}
-        <section className="mx-auto max-w-3xl overflow-hidden rounded-[30px] border border-[#e7e8ed] bg-white shadow-[0_15px_50px_rgba(25,30,55,0.04)]">
-          <div className="p-6 sm:p-10 lg:p-11">
-            <h2 className="text-4xl font-semibold tracking-tight text-[#191a29]">
-              Sign in
-            </h2>
-
-            <p className="mt-3 text-base text-[#9699a6] sm:text-lg">
-              Use your college email and password.
+            <p className="mt-4 max-w-[365px] text-xs leading-[1.8] text-[#a1a3b5] sm:text-[13px]">
+              Use the account your college created. Lessons, exams, and Code
+              Lab open as soon as you sign in.
             </p>
 
-            <form onSubmit={handleSubmit} className="mt-10 space-y-7">
-              {/* Email */}
-              <div>
-                <label
-                  htmlFor="email"
-                  className="mb-3 block text-lg font-medium text-[#656878]"
+            <div className="mt-10 grid max-w-[455px] grid-cols-1 gap-2.5 min-[420px]:grid-cols-2">
+              {features.map((feature) => (
+                <div
+                  key={feature.title}
+                  className="min-h-[122px] rounded-[15px] border border-white/[0.09] bg-white/[0.055] p-3.5 transition duration-200 hover:border-white/20 hover:bg-white/[0.08]"
                 >
-                  Email
-                </label>
-
-                <input
-                  id="email"
-                  type="email"
-                  autoComplete="username"
-                  placeholder="you@college.edu"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="h-[70px] w-full rounded-[27px] border border-[#e5e6eb] bg-white px-6 text-lg text-[#202131] outline-none transition placeholder:text-[#b1b4c0] focus:border-[#1b1c2b] focus:ring-2 focus:ring-[#1b1c2b]/10"
-                  required
-                />
-              </div>
-
-              {/* Password */}
-              <div>
-                <div className="mb-3 flex items-center justify-between gap-3">
-                  <label
-                    htmlFor="password"
-                    className="text-lg font-medium text-[#656878]"
-                  >
-                    Password
-                  </label>
-
-                  <button
-                    type="button"
-                    onClick={handleForgotPassword}
-                    className="text-sm font-semibold text-[#191a29] hover:underline sm:text-base"
-                  >
-                    Forgot password?
-                  </button>
+                  <div className="mb-3 flex h-[30px] w-[30px] items-center justify-center rounded-[9px] border border-white/[0.06] bg-white/[0.09] text-sm text-[#e5e6f0]">
+                    {feature.icon}
+                  </div>
+                  <h3 className="text-xs font-semibold">{feature.title}</h3>
+                  <p className="mt-1 text-[11px] leading-[1.6] text-[#a1a3b5]">
+                    {feature.description}
+                  </p>
                 </div>
-
-                <div className="relative">
-                  <input
-                    id="password"
-                    type={showPassword ? "text" : "password"}
-                    autoComplete="current-password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="h-[70px] w-full rounded-[27px] border border-[#e5e6eb] bg-white px-6 pr-16 text-lg text-[#202131] outline-none transition placeholder:text-[#b1b4c0] focus:border-[#1b1c2b] focus:ring-2 focus:ring-[#1b1c2b]/10"
-                    required
-                  />
-
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    aria-label={showPassword ? "Hide password" : "Show password"}
-                    className="absolute right-5 top-1/2 -translate-y-1/2 text-[#9295a4] hover:text-[#191a29]"
-                  >
-                    {showPassword ? (
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.7"
-                        className="h-6 w-6"
-                      >
-                        <path d="M3 3l18 18M10.6 10.6a2 2 0 002.8 2.8" />
-                        <path d="M9.9 5.2A10.9 10.9 0 0121 12a11.8 11.8 0 01-3.1 3.8M6.2 6.2A12 12 0 003 12s3.3 6 9 6a9.7 9.7 0 004-.9" />
-                      </svg>
-                    ) : (
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.7"
-                        className="h-6 w-6"
-                      >
-                        <path d="M2.5 12s3.3-6 9.5-6 9.5 6 9.5 6-3.3 6-9.5 6-9.5-6-9.5-6z" />
-                        <circle cx="12" cy="12" r="2.5" />
-                      </svg>
-                    )}
-                  </button>
-                </div>
-              </div>
-
-              {/* Remember me */}
-              <label className="flex w-fit cursor-pointer items-center gap-3 text-base text-[#666978] sm:text-lg">
-                <input
-                  type="checkbox"
-                  checked={keepLoggedIn}
-                  onChange={(e) => setKeepLoggedIn(e.target.checked)}
-                  className="h-6 w-6 cursor-pointer accent-[#191a29]"
-                />
-                Keep me logged in
-              </label>
-
-              {/* Submit */}
-              <button
-                type="submit"
-                className="h-[72px] w-full rounded-[27px] bg-[#1b1c2b] text-lg font-semibold text-white transition hover:bg-[#292b40] active:scale-[0.99]"
-              >
-                Sign in
-              </button>
-
-              {message && (
-                <p
-                  role="status"
-                  className="rounded-xl bg-[#f4f5f9] p-4 text-sm text-[#4b5062]"
-                >
-                  {message}
-                </p>
-              )}
-            </form>
+              ))}
+            </div>
           </div>
 
-          {/* Footer */}
-          <footer className="border-t border-[#e8e9ee] px-6 py-6 sm:px-10">
-            <p className="text-base leading-7 text-[#9699a6]">
-              Accounts are created by your college admin. Contact them if you
-              cannot sign in.
-            </p>
+          <footer className="relative z-10 mt-auto text-[10px] text-[#9295a7]">
+            Nano · Student access only
           </footer>
         </section>
 
-        {/* Feature cards */}
-        <section className="mx-auto mt-7 grid max-w-3xl grid-cols-2 gap-3 sm:gap-4">
-          {features.map((feature) => (
-            <div
-              key={feature.label}
-              className="flex min-h-[76px] items-center gap-3 rounded-[26px] border border-[#e6e7ec] bg-white px-4 py-4 text-[#646777] transition hover:border-[#c8cad5] sm:px-6"
-            >
-              <span
-                aria-hidden="true"
-                className="flex h-8 w-8 shrink-0 items-center justify-center text-xl text-[#343544]"
-              >
-                {feature.icon}
-              </span>
+        {/* RIGHT PANEL */}
+        <section className="flex min-h-[600px] items-center justify-center bg-[#f5f6fa] px-5 py-14 sm:px-10 lg:min-h-screen lg:px-12">
+          <div className="w-full max-w-[368px]">
+            <p className="mb-2 text-[10px] font-bold tracking-[0.2em] text-[#9699a9]">
+              NANO
+            </p>
 
-              <span className="text-base font-medium sm:text-lg">
-                {feature.label}
-              </span>
-            </div>
-          ))}
+            <h2 className="text-[25px] font-semibold tracking-[-0.04em]">
+              Sign in
+            </h2>
+
+            <p className="mt-1.5 text-xs text-[#858898]">
+              College email and password.
+            </p>
+
+            <form
+              onSubmit={handleSubmit}
+              className="mt-4 overflow-hidden rounded-[17px] border border-[#e9e9ee] bg-white shadow-[0_16px_45px_rgba(30,31,48,0.055)]"
+            >
+              <div className="space-y-4 p-5">
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="mb-2 block text-[11px] font-medium text-[#383947]"
+                  >
+                    Email
+                  </label>
+                  <input
+                    id="email"
+                    type="email"
+                    autoComplete="email"
+                    placeholder="you@college.edu"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="h-[38px] w-full rounded-full border border-[#e8e8ed] bg-white px-3 text-xs outline-none transition placeholder:text-[#b6b8c4] focus:border-[#8c8ea3] focus:ring-2 focus:ring-[#1c1d2a]/5"
+                  />
+                </div>
+
+                <div>
+                  <div className="mb-2 flex items-center justify-between gap-2">
+                    <label
+                      htmlFor="password"
+                      className="text-[11px] font-medium text-[#383947]"
+                    >
+                      Password
+                    </label>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setMessage(
+                          "Please contact your college administrator to reset your password."
+                        )
+                      }
+                      className="text-[11px] font-semibold text-[#30313c] hover:underline"
+                    >
+                      Forgot password?
+                    </button>
+                  </div>
+
+                  <div className="relative">
+                    <input
+                      id="password"
+                      type={showPassword ? "text" : "password"}
+                      autoComplete="current-password"
+                      placeholder="Password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="h-[38px] w-full rounded-full border border-[#e8e8ed] bg-white px-3 pr-11 text-xs outline-none transition placeholder:text-[#b6b8c4] focus:border-[#8c8ea3] focus:ring-2 focus:ring-[#1c1d2a]/5"
+                    />
+
+                    <button
+                      type="button"
+                      aria-label={showPassword ? "Hide password" : "Show password"}
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute inset-y-0 right-3 flex items-center text-[#9698a8] hover:text-[#242532]"
+                    >
+                      {showPassword ? (
+                        <svg
+                          viewBox="0 0 24 24"
+                          className="h-4 w-4"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.6"
+                        >
+                          <path d="M3 3l18 18M10.6 10.7a2 2 0 002.7 2.7" />
+                          <path d="M9.9 5.2A10.7 10.7 0 0112 5c5.2 0 8.5 5 9 7-.2.8-1.1 2.5-2.7 4M6.2 6.2C3.8 7.8 2.3 10.5 2 12c.5 2 3.8 7 10 7 1.1 0 2.1-.2 3-.5" />
+                        </svg>
+                      ) : (
+                        <svg
+                          viewBox="0 0 24 24"
+                          className="h-4 w-4"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.6"
+                        >
+                          <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z" />
+                          <circle cx="12" cy="12" r="3" />
+                        </svg>
+                      )}
+                    </button>
+                  </div>
+                </div>
+
+                <label className="flex cursor-pointer items-center gap-2 text-[11px] text-[#77798a]">
+                  <input
+                    type="checkbox"
+                    checked={rememberMe}
+                    onChange={(e) => setRememberMe(e.target.checked)}
+                    className="h-3 w-3 accent-[#1c1d2a]"
+                  />
+                  Keep me logged in
+                </label>
+
+                <button
+                  type="submit"
+                  className="h-[38px] w-full rounded-full bg-[#1c1d2a] text-xs font-semibold text-white transition hover:bg-[#303142] active:scale-[0.99]"
+                >
+                  Sign in
+                </button>
+
+                {message && (
+                  <p
+                    role="status"
+                    className="rounded-lg bg-[#f3f3f7] p-3 text-[11px] leading-5 text-[#4c4e60]"
+                  >
+                    {message}
+                  </p>
+                )}
+              </div>
+
+              <div className="border-t border-[#eeeeF2] px-5 py-3.5">
+                <p className="text-[10px] leading-[1.8] text-[#9698a7]">
+                  Accounts are created by your college admin. Contact them if
+                  you cannot sign in.
+                </p>
+              </div>
+            </form>
+          </div>
         </section>
       </div>
     </main>
   );
 }
-
-export default App;
