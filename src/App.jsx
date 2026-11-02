@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 
 const features = [
@@ -6,21 +5,29 @@ const features = [
     icon: "▤",
     title: "Classes",
     description: "Subjects, lessons, and files your teachers publish.",
+    card: "hover:border-blue-400/50 hover:bg-blue-500/10",
+    iconStyle: "bg-blue-500",
   },
   {
     icon: "♧",
     title: "Exams",
     description: "Timed tests, forms, and results in one place.",
+    card: "hover:border-purple-400/50 hover:bg-purple-500/10",
+    iconStyle: "bg-purple-500",
   },
   {
-    icon: "‹/›",
+    icon: "</>",
     title: "Code Lab",
     description: "Practice problems with a built-in editor.",
+    card: "hover:border-emerald-400/50 hover:bg-emerald-500/10",
+    iconStyle: "bg-emerald-500",
   },
   {
-    icon: "♧",
+    icon: "✦",
     title: "Updates",
     description: "Announcements and attendance from your college.",
+    card: "hover:border-orange-400/50 hover:bg-orange-500/10",
+    iconStyle: "bg-orange-500",
   },
 ];
 
@@ -47,27 +54,34 @@ export default function App() {
   return (
     <main className="min-h-screen bg-[#f5f6fa] font-sans text-[#20212d]">
       <div className="grid min-h-screen grid-cols-1 lg:grid-cols-[52.4%_47.6%]">
+
         {/* LEFT PANEL */}
         <section className="relative flex min-h-[600px] flex-col overflow-hidden bg-[#1c1d2a] px-7 py-8 text-white sm:px-11 sm:py-9 lg:min-h-screen">
-          <div className="pointer-events-none absolute -right-20 -top-20 h-60 w-60 rounded-full bg-white/[0.045]" />
-          <div className="pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-white/[0.035]" />
 
-          {/* Logo */}
+          <div className="pointer-events-none absolute -right-20 -top-20 h-60 w-60 rounded-full bg-blue-500/10 blur-3xl" />
+
+          <div className="pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-purple-500/10 blur-3xl" />
+
+          {/* LOGO */}
           <header className="relative z-10 flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#292b3b] text-xl font-black tracking-tight">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-purple-500 text-xl font-black shadow-lg">
               EC
             </div>
+
             <div>
-              <h2 className="text-sm font-semibold tracking-wide">ElytEdu</h2>
+              <h2 className="text-sm font-semibold tracking-wide">
+                ElytEdu
+              </h2>
               <p className="text-[11px] text-[#9b9daf]">
                 Student portal · Nano
               </p>
             </div>
           </header>
 
-          {/* Welcome content */}
+          {/* WELCOME CONTENT */}
           <div className="relative z-10 my-auto max-w-[470px] py-16 lg:py-10">
-            <p className="mb-3 text-[10px] font-bold tracking-[0.2em] text-[#9295ac]">
+
+            <p className="mb-3 text-[10px] font-bold tracking-[0.2em] text-blue-400">
               WELCOME BACK
             </p>
 
@@ -80,24 +94,34 @@ export default function App() {
               Lab open as soon as you sign in.
             </p>
 
-            <div className="mt-10 grid max-w-[455px] grid-cols-1 gap-2.5 min-[420px]:grid-cols-2">
+            {/* FEATURE CARDS */}
+            <div className="mt-10 grid max-w-[455px] grid-cols-1 gap-3 min-[420px]:grid-cols-2">
+
               {features.map((feature) => (
                 <div
                   key={feature.title}
-                  className="min-h-[122px] rounded-[15px] border border-white/[0.09] bg-white/[0.055] p-3.5 transition duration-200 hover:border-white/20 hover:bg-white/[0.08]"
+                  className={`group relative min-h-[135px] overflow-hidden rounded-2xl border border-white/10 bg-white/[0.06] p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${feature.card}`}
                 >
-                  <div className="mb-3 flex h-[30px] w-[30px] items-center justify-center rounded-[9px] border border-white/[0.06] bg-white/[0.09] text-sm text-[#e5e6f0]">
+                  <div
+                    className={`mb-3 flex h-10 w-10 items-center justify-center rounded-xl text-lg font-bold text-white shadow-lg ${feature.iconStyle}`}
+                  >
                     {feature.icon}
                   </div>
-                  <h3 className="text-xs font-semibold">{feature.title}</h3>
+
+                  <h3 className="text-sm font-semibold text-white">
+                    {feature.title}
+                  </h3>
+
                   <p className="mt-1 text-[11px] leading-[1.6] text-[#a1a3b5]">
                     {feature.description}
                   </p>
                 </div>
               ))}
+
             </div>
           </div>
 
+          {/* FOOTER */}
           <footer className="relative z-10 mt-auto text-[10px] text-[#9295a7]">
             Nano · Student access only
           </footer>
@@ -105,8 +129,10 @@ export default function App() {
 
         {/* RIGHT PANEL */}
         <section className="flex min-h-[600px] items-center justify-center bg-[#f5f6fa] px-5 py-14 sm:px-10 lg:min-h-screen lg:px-12">
+
           <div className="w-full max-w-[368px]">
-            <p className="mb-2 text-[10px] font-bold tracking-[0.2em] text-[#9699a9]">
+
+            <p className="mb-2 text-[10px] font-bold tracking-[0.2em] text-blue-500">
               NANO
             </p>
 
@@ -118,11 +144,14 @@ export default function App() {
               College email and password.
             </p>
 
+            {/* LOGIN FORM */}
             <form
               onSubmit={handleSubmit}
               className="mt-4 overflow-hidden rounded-[17px] border border-[#e9e9ee] bg-white shadow-[0_16px_45px_rgba(30,31,48,0.055)]"
             >
               <div className="space-y-4 p-5">
+
+                {/* EMAIL */}
                 <div>
                   <label
                     htmlFor="email"
@@ -130,6 +159,7 @@ export default function App() {
                   >
                     Email
                   </label>
+
                   <input
                     id="email"
                     type="email"
@@ -137,10 +167,11 @@ export default function App() {
                     placeholder="you@college.edu"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="h-[38px] w-full rounded-full border border-[#e8e8ed] bg-white px-3 text-xs outline-none transition placeholder:text-[#b6b8c4] focus:border-[#8c8ea3] focus:ring-2 focus:ring-[#1c1d2a]/5"
+                    className="h-[42px] w-full rounded-full border border-[#e8e8ed] bg-white px-4 text-xs outline-none transition placeholder:text-[#b6b8c4] focus:border-blue-400 focus:ring-2 focus:ring-blue-400/10"
                   />
                 </div>
 
+                {/* PASSWORD */}
                 <div>
                   <div className="mb-2 flex items-center justify-between gap-2">
                     <label
@@ -149,6 +180,7 @@ export default function App() {
                     >
                       Password
                     </label>
+
                     <button
                       type="button"
                       onClick={() =>
@@ -156,7 +188,7 @@ export default function App() {
                           "Please contact your college administrator to reset your password."
                         )
                       }
-                      className="text-[11px] font-semibold text-[#30313c] hover:underline"
+                      className="text-[11px] font-semibold text-blue-600 hover:underline"
                     >
                       Forgot password?
                     </button>
@@ -170,7 +202,7 @@ export default function App() {
                       placeholder="Password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="h-[38px] w-full rounded-full border border-[#e8e8ed] bg-white px-3 pr-11 text-xs outline-none transition placeholder:text-[#b6b8c4] focus:border-[#8c8ea3] focus:ring-2 focus:ring-[#1c1d2a]/5"
+                      className="h-[42px] w-full rounded-full border border-[#e8e8ed] bg-white px-4 pr-11 text-xs outline-none transition placeholder:text-[#b6b8c4] focus:border-blue-400 focus:ring-2 focus:ring-blue-400/10"
                     />
 
                     <button
@@ -206,19 +238,21 @@ export default function App() {
                   </div>
                 </div>
 
+                {/* REMEMBER ME */}
                 <label className="flex cursor-pointer items-center gap-2 text-[11px] text-[#77798a]">
                   <input
                     type="checkbox"
                     checked={rememberMe}
                     onChange={(e) => setRememberMe(e.target.checked)}
-                    className="h-3 w-3 accent-[#1c1d2a]"
+                    className="h-3 w-3 accent-blue-600"
                   />
                   Keep me logged in
                 </label>
 
+                {/* SIGN IN BUTTON */}
                 <button
                   type="submit"
-                  className="h-[38px] w-full rounded-full bg-[#1c1d2a] text-xs font-semibold text-white transition hover:bg-[#303142] active:scale-[0.99]"
+                  className="h-[42px] w-full rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-xs font-semibold text-white shadow-md transition hover:from-blue-700 hover:to-purple-700 active:scale-[0.99]"
                 >
                   Sign in
                 </button>
@@ -226,7 +260,7 @@ export default function App() {
                 {message && (
                   <p
                     role="status"
-                    className="rounded-lg bg-[#f3f3f7] p-3 text-[11px] leading-5 text-[#4c4e60]"
+                    className="rounded-lg bg-blue-50 p-3 text-[11px] leading-5 text-blue-700"
                   >
                     {message}
                   </p>
